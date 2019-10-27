@@ -5,18 +5,16 @@ const int VERSION = '1.0';
 int operative[MEM_KB << 10];
 
 int main(const int args, const char *argv[]){
-
 	
 	const char *file_name = nullptr;
 
-	if(args < 1){
+	if(args > 1){
 		file_name = argv[1];
-		return 0;
 	}
 	else{
 		file_name = default_binary_file_name;
 	}
-
+	
 	//file_name = "assembled.mubeg";
 
 	if(file_name == nullptr){
