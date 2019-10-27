@@ -1,0 +1,2 @@
+g++ -std=c++11 -E -g command_describe.h -o commands.h
+python3 py_preproc.py

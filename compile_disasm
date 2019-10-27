@@ -1,0 +1,2 @@
+./preproc_commands
+g++ -std=c++11 -w disassemble.cpp -o DISASM

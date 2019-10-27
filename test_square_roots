@@ -1,0 +1,331 @@
+call main
+end
+
+solveLinear:  ; int solveLinear(double a, double b, double* x)
+	pop dx
+	pop ax
+	pop bx
+	pop cx
+	push cx
+	push 0
+	ja addr_is_neg ; x != <NULL>
+	push ax
+	push 0
+	je a_is_zero
+	jmp end_a_zero	
+
+addr_is_neg:
+		push 6
+		pop ax
+		jmp return_equal	
+a_is_zero:
+		push bx
+		push 0
+		jne b_is_not_zero
+
+		push 7 ; SS_INF_NROOTS
+		pop ax
+		jmp end_a_zero
+
+b_is_not_zero:
+			push 0
+			pop ax
+			jmp return_equal
+end_a_zero:
+	push ax
+	push -1
+	push bx
+	mul 
+	pop [cx]   ; *x = -b/a
+	push 1
+	pop ax
+
+return_equal:
+	push dx
+	return
+
+
+solveSquare: ; int solveSquare(double a, double b, double c, double* x1, double* x2)
+	pop dx
+	pop ax
+	pop bx
+	pop cx
+
+	push 0 ; if a == 0
+	push ax
+	jne solveLinear_end
+		pop ax
+		pop
+		push dx
+		push ax
+		push cx	
+		push bx
+		call solveLinear
+		return ; return solveLinear(b, c, x1);
+
+solveLinear_end:
+
+	push 4
+	push ax
+	push cx
+	fmul
+	mul
+	push bx
+	push bx
+	fmul
+	sub
+	pop cx ; d = b*b - 4*a*c
+	push cx
+	push 0
+	jne d_is_zero_end
+		pop cx; ; cx = x1
+		push 2
+		push ax
+		mul
+		push bx
+		push -1
+		mul
+		fdiv  
+		push [cx]; *x1 = -b/(2*a)	
+		push 1
+		pop ax
+		pop
+		push dx
+		return
+
+d_is_zero_end:
+
+	push cx
+	push 0
+	jb d_is_less_zero_end
+		push 0
+		pop ax
+		pop
+		pop
+		push dx
+		return
+
+d_is_less_zero_end:
+
+
+	push 2
+	push ax
+	mul
+	push cx
+	sqrt
+	push -1
+	push bx
+	mul
+	add
+	fdiv ;	(-b + sqrt(d))/(2*a)
+
+	push 2
+	push ax
+	mul
+	push cx
+	sqrt
+	push -1
+	push bx
+	mul
+	sub
+	fdiv ; (-b - sqrt(d))/(2*a)
+
+	pop ax
+	pop bx
+	pop cx ; x1
+	push ax
+	push [cx]
+	pop cx ; x2
+	push bx
+	push [cx]
+
+	push 2
+	pop ax
+	push dx
+	return
+
+
+main: 
+	pop dx
+
+	push 0
+	push 0
+	push 0
+	pop ax
+	pop bx
+	pop cx
+
+	push 69
+	cout
+	push 110
+	cout
+	push 116
+	cout
+	push 101
+	cout
+	push 114
+	cout
+	push 32
+	cout
+	push 97
+	cout
+	push 44
+	cout
+	push 32
+	cout
+	push 98
+	cout
+	push 44
+	cout
+	push 32
+	cout
+	push 99
+	cout
+	push 58
+	cout	
+	push 10
+	cout
+	fin ; in a
+	fin ; in b
+	fin ; in c
+	
+	pop cx
+	pop bx
+	pop ax
+
+	push 0
+	push [0] ; x1 = 0
+	push 0
+	push [1] ; x2 = 0
+
+	push dx
+	push 1
+	push 0
+	push cx
+	push bx
+	push ax
+	call solveSquare
+
+	pop dx
+	push ax
+	push 0
+	jne case_1
+
+	push 78
+	cout
+	push 79
+	cout
+	push 32
+	cout
+	push 82
+	cout
+	push 79
+	cout
+	push 79
+	cout
+	push 84
+	cout
+	push 83
+	cout
+	push 10
+	cout
+	
+case_1:
+
+	push ax
+	push 1
+	jne case_2
+
+	push 120
+	cout
+	push 32
+	cout
+	push 61
+	cout
+	push 32
+	cout
+	pop [0]
+	fout
+	push 10
+	cout
+
+case_2:
+	
+	push ax
+	push 2
+	jne case_3
+	
+	push 120
+	cout
+	push 49
+	cout
+	push 32
+	cout
+	push 61
+	cout
+	push 32
+	cout
+	pop [0]
+	fout
+	push 10
+	cout
+
+	push 120
+	cout
+	push 50
+	cout
+	push 32
+	cout
+	push 61
+	cout
+	push 32
+	cout
+	pop [1]
+	fout
+	push 10
+	cout
+
+case_3:
+	
+	push ax
+	push 7
+	jne default_case
+	
+	push 65
+	cout
+	push 110
+	cout
+	push 121
+	cout
+	push 32
+	cout
+	push 110
+	cout
+	push 117
+	cout
+	push 109
+	cout
+	push 98
+	cout
+	push 101
+	cout
+	push 114
+	cout
+	push 10
+	cout
+
+default_case:
+
+		push 1
+		pop ax
+		push dx
+		return		
+
+	push 0
+	pop
+	push dx
+	return
+	
+
+
+

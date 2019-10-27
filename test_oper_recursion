@@ -1,0 +1,31 @@
+in
+push 12345
+push [6]
+pop ax
+push ax
+call factorial
+push ax
+out
+pop [6]
+out
+end
+factorial:
+pop dx
+pop ax
+push 1
+push ax
+jbe return_factorial
+push dx
+push ax
+push 1
+push ax
+sub
+call factorial
+push ax
+mul
+pop ax
+pop dx
+return_factorial:
+push dx
+return
+end

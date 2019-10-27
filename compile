@@ -1,0 +1,3 @@
+./compile_CPU
+./compile_disasm
+./compile_asm

@@ -1,0 +1,2 @@
+./preproc_commands
+g++ -std=c++11 -w processor.cpp -o CPU

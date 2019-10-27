@@ -1,0 +1,32 @@
+jmp main
+
+factorial:
+pop dx
+pop ax
+push 1
+push ax
+jbe return_factorial
+push dx
+push ax
+push 1
+push ax
+sub
+call factorial
+push ax
+mul
+pop ax
+pop dx
+return_factorial:
+push dx
+return
+end
+
+
+main:
+in
+pop ax
+push ax
+call factorial
+push ax
+out
+end
