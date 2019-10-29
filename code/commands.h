@@ -168,10 +168,10 @@ DEF_FUNC(add, 30, 1, {stack_push(&processor.stack, (stack_pop(&processor.stack) 
 DEF_FUNC(jmp, 40, 2, { pc = commands[++pc]; pc --;}, { str arg = {}; if(!get_arg_str(line, &pos, &arg)){ correct = false; } else{ label label = {}; strcpy(label.label, arg.str); label.num = -1; int pos = find_label(labels, &label); if(pos != -1){ stack_push(stack, CMD_jmp); *pc += 1;; stack_push(stack, labels[pos].num); *pc += 1;; } else if(*label_counter == MAX_LABEL_NUM - 1){ fprintf(stderr, "Label overflow from label: %s\n", label.label); correct = false; } else{ labels[(*label_counter)++] = label; stack_push(stack, CMD_jmp); *pc += 1;; stack_push(stack, -1); *pc += 1;; } }})
 
 
-DEF_FUNC(out, 50, 1, printf("%d", stack_pop(&processor.stack));, stack_push(stack, CMD_out); *pc += 1;;)
+DEF_FUNC(out, 50, 1, printf("%" "d", stack_pop(&processor.stack));;, stack_push(stack, CMD_out); *pc += 1;;)
 
 
-DEF_FUNC(cout, 51, 1, printf("%c", stack_pop(&processor.stack));, stack_push(stack, CMD_cout); *pc += 1;;)
+DEF_FUNC(cout, 51, 1, printf("%" "c", stack_pop(&processor.stack));;, stack_push(stack, CMD_cout); *pc += 1;;)
 
 
 DEF_FUNC(fout, 52, 1, printf("%." ACCURACY_PRINT "f", ((float) stack_pop(&processor.stack)) / ACCURACY);, stack_push(stack, CMD_fout); *pc += 1;;)
@@ -226,3 +226,8 @@ DEF_FUNC(fdiv, 111, 1, stack_push(&processor.stack, ((int) ((((float) stack_pop(
 
 
 DEF_FUNC(sqrt, 120, 1, stack_push(&processor.stack, ((int) (sqrt( ((float) stack_pop(&processor.stack))/ACCURACY) * ACCURACY)));, stack_push(stack, CMD_sqrt); *pc += 1;;)
+
+
+DEF_FUNC(draw, 130, 1, for(int _ = 0; _ < TERMINAL_SHIFT; _++){ printf("%" "c", '\n'); };
+         for(int _ = 0; _ < video_mem + 1; _++){ if(_ % width != 0){printf("%" "c", operative[(sleep_for_while(), _)]);;}
+               else{printf("%" "c", '\n');;} }, stack_push(stack, CMD_draw); *pc += 1;;)

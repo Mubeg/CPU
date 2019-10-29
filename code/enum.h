@@ -9,6 +9,8 @@ const int REGISTOR_NUM = 4;
 const int ACCURACY = 1000;
 #define ACCURACY_PRINT "3"
 
+const int TERMINAL_SHIFT = 30;
+
 const int MEM_KB = 10;
 
 enum commands {

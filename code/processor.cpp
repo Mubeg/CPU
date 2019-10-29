@@ -2,7 +2,8 @@
 
 const int VERSION = '1.0';
 
-int operative[MEM_KB << 10];
+int operative[MEM_KB << 10] = {};
+const int video_mem = length * width * pixel_size;
 
 int main(const int args, const char *argv[]){
 	

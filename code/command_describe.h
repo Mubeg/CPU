@@ -8,6 +8,15 @@
 #define PUT(cmd)  stack_push(stack, cmd); *pc += 1;
 #define OPER(arg) operative[(sleep_for_while(), arg)]
 
+#define IF(cond, arg) if(cond){arg;}
+#define ELSE(arg) else{arg;}
+
+#define CYCLE_START(size) for(int _ = 0; _ < size; _++){
+#define CYCLE_END }
+#define COUNTER _
+
+#define DRAW_NEXT_OBJ(type, arg) printf("%" #type, arg);
+
 #define JMP_do_param(cmd) \
 	{\
 \
@@ -178,10 +187,10 @@ DEF_FUNC(add, 30, 1, {PUSH(POP + POP);}, PUT(CMD_add))
 DEF_FUNC(jmp, 40, 2, { pc = ARG; pc --;}, JMP_do_param(CMD_jmp))
 
 
-DEF_FUNC(out, 50, 1, printf("%d", POP);, PUT(CMD_out);)
+DEF_FUNC(out, 50, 1, DRAW_NEXT_OBJ(d, POP);, PUT(CMD_out);)
 
 
-DEF_FUNC(cout, 51, 1, printf("%c", POP);, PUT(CMD_cout);)
+DEF_FUNC(cout, 51, 1, DRAW_NEXT_OBJ(c, POP);, PUT(CMD_cout);)
 
 
 DEF_FUNC(fout, 52, 1, printf("%." ACCURACY_PRINT "f", ((float) POP) / ACCURACY);, PUT(CMD_fout);)
@@ -236,6 +245,11 @@ DEF_FUNC(fdiv, 111, 1, PUSH((int) ((((float) POP)/ACCURACY) / (((float) POP)/ACC
 
 
 DEF_FUNC(sqrt, 120, 1, PUSH((int) (sqrt( ((float) POP)/ACCURACY) * ACCURACY) );, PUT(CMD_sqrt);)
+
+
+DEF_FUNC(draw, 130, 1, CYCLE_START(TERMINAL_SHIFT) DRAW_NEXT_OBJ(c, '\n') CYCLE_END;
+		       CYCLE_START(video_mem + 1) IF(COUNTER % width != 0, DRAW_NEXT_OBJ(c, OPER(COUNTER))) 
+					          ELSE(DRAW_NEXT_OBJ(c, '\n'))  CYCLE_END, PUT(CMD_draw);)
 
 
 

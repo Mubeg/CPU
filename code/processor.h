@@ -9,6 +9,10 @@ const int UNRESOLVED_COMMAND = 2;
 const char default_binary_file_name[] = "assembled.mubeg";
 const int ASSEMBLE_ROUNDS = 2;
 
+const int width      = 81;
+const int length     = 20;
+const int pixel_size = 1;
+
 struct Processor_t {
 
 	hash_t hash;
@@ -21,7 +25,7 @@ struct Processor_t {
 
 
 int sleep_for_while(void){
-	for(int _ = 0; _ < 100000000; _++);
+	for(int _ = 0; _ < (1000000000, 1); _++);
 	return 0;
 }
 

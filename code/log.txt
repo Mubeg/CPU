@@ -14622,3 +14622,37 @@ Stack [0x7ffca45f1ac8] proc->stack {
 
 	}
 
+
+Time and date: Tue Oct 29 19:52:55 2019
+
+Dumping stack from file processor.cpp, line 89, function int run(Elem_t*, Processor_t) [ERROR!!!]
+Stack [0x7fff0604eed8] proc->stack {
+
+		 hash    = 7830782914227016460
+
+		 canary1 = BEDAAAAAAAAAAAAA
+		 size    = 4
+		 maxsize = 10
+
+		 buff = [0x55d1f2288030]
+		 canary_dynamic1 [0x55d1f2288030] = BEDAAAAAAAAAAAAA
+		 data = [0x55d1f2288038]{
+			 * data[0] = 4 
+			 * data[1] = 298 
+			 * data[2] = 7 
+			 * data[3] = 0 
+			   data[4] = 1263096897 POISON?
+			   data[5] = 1263096897 POISON?
+			   data[6] = 1263096897 POISON?
+			   data[7] = 1263096897 POISON?
+			   data[8] = 1263096897 POISON?
+			   data[9] = 1263096897 POISON?
+		 }
+		 canary_dynamic2 [0x55d1f2288060] = BEDAAAAAAAAAAAAA
+
+		 errnum   = 000000000000
+
+		 canary2 = BEDAAAAAAAAAAAAA
+
+	}
+
