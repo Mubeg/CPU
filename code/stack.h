@@ -122,7 +122,7 @@ void zero_data(void * const data, const int start, const int end);
 
 
 bool check_stack(Stack_t *stk, const char called_from_file[], int line, const char func[], 
-		 int cur_state_func = NO_CHECK_FUNCTION_FULLCHECK, bool print_all = true);
+		 int cur_state_func = NO_CHECK_FUNCTION_FULLCHECK, bool print_all = false);
 
 
 void stack_dump(Stack_t * const stk, const char called_from_file[], int line, const char func[], bool ok);

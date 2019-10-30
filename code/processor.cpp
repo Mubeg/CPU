@@ -71,35 +71,68 @@ bool check_compatibility(Elem_t * commands){
 
 int run(Elem_t * commands, Processor_t processor){
 
-	unsigned long long int pc = START_BIAS;
-
 	while(true){
+		processor_dump(&processor, __LOCATION__, true);
 
 		#define DEF_FUNC(name, num, len, code, param_code) \
-			else if(commands[pc] == num){\
-				fflush(stdout);\
+			else if(commands[processor.pc] == num){\
 				code;\
-				pc++;\
+				(processor.pc)++;\
 			}
-				//printf("command[%4d]: %s\n", pc, #name);\
 		
 		BEGIN
 		#include "commands.h"
 		else{
-			stack_dump(&processor.stack, __LOCATION__, false);
-			fprintf(stderr, "Command %d unresolved" PRINT_LOCATION "\n", commands[pc], __LOCATION__);
+			processor_dump(&processor, __LOCATION__, false);
+			fprintf(stderr, "Command %d unresolved" PRINT_LOCATION "\n", commands[processor.pc], __LOCATION__);
 			return UNRESOLVED_COMMAND;
 		}
-		//stack_dump(&processor.stack, __LOCATION__, false);
 		#undef DEF_FUNC
 	}
+	
 
 	return 0;
+}
+
+void processor_dump(Processor_t * proc, const char called_from_file[], int line, const char func[], bool ok){
+
+	FILE *log_file = fopen(LOG_FILE, "a");
+	if(log_file == nullptr){
+		fprintf(stderr, "Not able to open %s in %s line %d in %s\n", LOG_FILE, __LOCATION__);
+		return;
+	}
+	
+	fprintf(log_file, "Dump of processor [%s]\n", !ok ? "ERROR!!!" : "ok");
+
+	for(int i = 0; i < REGISTOR_NUM; i++){
+
+		#define DEF_REG(name, num) \
+			else if(num == i)\
+				fprintf(log_file, "\tRegistor[%s] = %d\n", #name, proc->registors[num]);
+
+		if(false == true){return;}
+		#include"registors.h"
+		END
+		#undef DEF_REG
+
+	}
+	fflush(log_file);
+	
+	fprintf(log_file, "Operative Memory:\n");
+	/*for(int i = 0; i < MEM_KB<<10; i++){	
+		fprintf(log_file, "[%04d] ", operative[i]);
+	}*/
+	fprintf(log_file, "\n");
+	fclose(log_file);
+
+	stack_dump(&proc->stack, called_from_file, line, func, ok);
 }
 
 bool processor_init(Processor_t * proc){
 
 	assert(proc != nullptr);
+	
+	proc->pc = START_BIAS;
 
 	return STACK_INIT(&proc->stack);
 }

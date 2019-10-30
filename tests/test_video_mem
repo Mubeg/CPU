@@ -1,6 +1,6 @@
 jmp main
 
-put: /put(int c, int pos)
+put: ;put(int c, int pos)
 pop dx
 pop ax
 pop bx
@@ -46,7 +46,7 @@ cycle:
 	push cx
 	add
 	pop cx
-	push 1000s
+	push 1000
 	push cx
 	jb cycle
 

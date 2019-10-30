@@ -1,11 +1,12 @@
 //DEF_FUNC(name, num, len, code, param_code)
 
-#define PUSH(arg) stack_push(&processor.stack, (arg))
-#define ARG commands[++pc]
+#define PC (processor.pc)
+#define PUSH(arg) stack_push(&(processor.stack), (arg))
+#define ARG commands[++PC]
 #define REG(num) processor.registors[num]
 #define POP stack_pop(&processor.stack)
 #define DROP(arg) arg
-#define PUT(cmd)  stack_push(stack, cmd); *pc += 1;
+#define PUT(cmd)  stack_push(stack, cmd); (*pc)++;
 #define OPER(arg) operative[(sleep_for_while(), arg)]
 
 #define IF(cond, arg) if(cond){arg;}
@@ -184,7 +185,7 @@ DEF_FUNC(pop_oper_reg, 23, 2, {PUSH(OPER(REG(ARG)));}, {correct = false;})
 DEF_FUNC(add, 30, 1, {PUSH(POP + POP);}, PUT(CMD_add))
 
 
-DEF_FUNC(jmp, 40, 2, { pc = ARG; pc --;}, JMP_do_param(CMD_jmp))
+DEF_FUNC(jmp, 40, 2, { PC = ARG; PC --;}, JMP_do_param(CMD_jmp))
 
 
 DEF_FUNC(out, 50, 1, DRAW_NEXT_OBJ(d, POP);, PUT(CMD_out);)
@@ -205,28 +206,28 @@ DEF_FUNC(mul, 60, 1, PUSH(POP * POP);, PUT(CMD_mul);)
 DEF_FUNC(fmul, 61, 1, PUSH((int) (((float) POP)/ACCURACY) * (((float) POP)/ACCURACY) * ACCURACY );, PUT(CMD_fmul);)
 
 
-DEF_FUNC(ja,  41, 2, if(POP > POP) {pc = ARG; pc--;}else{DROP(ARG);}, JMP_do_param(CMD_ja ))
+DEF_FUNC(ja,  41, 2, if(POP > POP) {PC = ARG; PC--;}else{DROP(ARG);}, JMP_do_param(CMD_ja ))
 
 
-DEF_FUNC(jae, 42, 2, if(POP >= POP){pc = ARG; pc--;}else{DROP(ARG);}, JMP_do_param(CMD_jae))
+DEF_FUNC(jae, 42, 2, if(POP >= POP){PC = ARG; PC--;}else{DROP(ARG);}, JMP_do_param(CMD_jae))
 
 
-DEF_FUNC(jb,  43, 2, if(POP < POP) {pc = ARG; pc--;}else{DROP(ARG);}, JMP_do_param(CMD_jb ))
+DEF_FUNC(jb,  43, 2, if(POP < POP) {PC = ARG; PC--;}else{DROP(ARG);}, JMP_do_param(CMD_jb ))
 
 
-DEF_FUNC(jbe, 44, 2, if(POP <= POP){pc = ARG; pc--;}else{DROP(ARG);}, JMP_do_param(CMD_jbe))
+DEF_FUNC(jbe, 44, 2, if(POP <= POP){PC = ARG; PC--;}else{DROP(ARG);}, JMP_do_param(CMD_jbe))
 
 
-DEF_FUNC(je,  45, 2, if(POP == POP){pc = ARG; pc--;}else{DROP(ARG);}, JMP_do_param(CMD_je ))
+DEF_FUNC(je,  45, 2, if(POP == POP){PC = ARG; PC--;}else{DROP(ARG);}, JMP_do_param(CMD_je ))
 
 
-DEF_FUNC(jne, 46, 2, if(POP != POP){pc = ARG; pc--;}else{DROP(ARG);}, JMP_do_param(CMD_jne))
+DEF_FUNC(jne, 46, 2, if(POP != POP){PC = ARG; PC--;}else{DROP(ARG);}, JMP_do_param(CMD_jne))
 
 
-DEF_FUNC(call, 70, 2, PUSH(pc + 2); pc = ARG; pc--;, JMP_do_param(CMD_call))
+DEF_FUNC(call, 70, 2, PUSH(PC + 2); PC = ARG; PC--;, JMP_do_param(CMD_call))
 
 
-DEF_FUNC(return, 100, 1, pc = POP; pc--;, PUT(CMD_return))
+DEF_FUNC(return, 100, 1, PC = POP; PC--;, PUT(CMD_return))
 
 
 DEF_FUNC(sub, 80, 1, {PUSH(POP - POP);}, PUT(CMD_sub))
@@ -250,6 +251,8 @@ DEF_FUNC(sqrt, 120, 1, PUSH((int) (sqrt( ((float) POP)/ACCURACY) * ACCURACY) );,
 DEF_FUNC(draw, 130, 1, CYCLE_START(TERMINAL_SHIFT) DRAW_NEXT_OBJ(c, '\n') CYCLE_END;
 		       CYCLE_START(video_mem + 1) IF(COUNTER % width != 0, DRAW_NEXT_OBJ(c, OPER(COUNTER))) 
 					          ELSE(DRAW_NEXT_OBJ(c, '\n'))  CYCLE_END, PUT(CMD_draw);)
+
+DEF_FUNC(dump, 140, 1, processor_dump(&processor, __LOCATION__, true), PUT(CMD_dump))
 
 
 

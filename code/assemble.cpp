@@ -137,7 +137,8 @@ bool assemble_one_line(const str_ptr line, const char * command, int pos, Stack_
 	assert(line    != nullptr);
 	assert(command != nullptr);
 	assert(labels  != nullptr);
-	assert(label_counter < MAX_LABEL_NUM);
+	assert(label_counter  != nullptr);
+	assert(*label_counter < MAX_LABEL_NUM);
 
 	if(command[0] == '\0'){
 		return true;
@@ -205,7 +206,7 @@ bool check_labels(label_ptr labels, const int label_counter){
 	for(int i = 0; i < label_counter; i++){
 		if(labels[i].num == -1 || strcmp(labels[i].label, "") == 0){
 			
-			fprintf(stderr, "Label \"%s\" #%d is corrupted\n", labels[i].label, i);
+			fprintf(stderr, "Label \"%s\" #%d is corrupted\n", labels[i].label, i + 1);
 			correct = false;
 		}
 	}	
@@ -219,7 +220,7 @@ bool get_arg_dec(const str_ptr line, int *pos, int * arg){
 	assert(line != nullptr);
 	assert(arg  != nullptr);
 	assert(pos  != nullptr);
-	assert(*pos > 0);
+	assert(*pos >= 0);
 
 	int temp_pos = 0;
 
