@@ -7,7 +7,7 @@
 #define POP stack_pop(&processor.stack)
 #define DROP(arg) arg
 #define PUT(cmd)  stack_push(stack, cmd); (*pc)++;
-#define OPER(arg) operative[(sleep_for_while(), arg)]
+#define OPER(arg) operative[(arg)]
 
 #define IF(cond, arg) if(cond){arg;}
 #define ELSE(arg) else{arg;}

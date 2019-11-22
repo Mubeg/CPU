@@ -81,10 +81,10 @@ else if(strcmp("dx", arg_str.str) == 0){ stack_push(stack, CMD_push_reg); (*pc)+
 DEF_FUNC(push_reg, 11, 2, {stack_push(&(processor.stack), (processor.registors[commands[++(processor.pc)]]));}, correct = false;)
 
 
-DEF_FUNC(push_oper, 12, 2, {operative[(sleep_for_while(), commands[++(processor.pc)])] = stack_pop(&processor.stack);}, correct = false;)
+DEF_FUNC(push_oper, 12, 2, {operative[(commands[++(processor.pc)])] = stack_pop(&processor.stack);}, correct = false;)
 
 
-DEF_FUNC(push_oper_reg, 13, 2, {operative[(sleep_for_while(), processor.registors[commands[++(processor.pc)]])] = stack_pop(&processor.stack);}, correct = false;)
+DEF_FUNC(push_oper_reg, 13, 2, {operative[(processor.registors[commands[++(processor.pc)]])] = stack_pop(&processor.stack);}, correct = false;)
 
 
 DEF_FUNC(pop, 20, 1, {stack_pop(&processor.stack);},
@@ -156,10 +156,10 @@ else if(strcmp("dx", arg_str.str) == 0){ stack_push(stack, CMD_pop_reg); (*pc)++
 DEF_FUNC(pop_reg, 21, 2, {processor.registors[commands[++(processor.pc)]] = stack_pop(&processor.stack);}, {correct = false;})
 
 
-DEF_FUNC(pop_oper, 22, 2, {stack_push(&(processor.stack), (operative[(sleep_for_while(), commands[++(processor.pc)])]));}, {correct = false;})
+DEF_FUNC(pop_oper, 22, 2, {stack_push(&(processor.stack), (operative[(commands[++(processor.pc)])]));}, {correct = false;})
 
 
-DEF_FUNC(pop_oper_reg, 23, 2, {stack_push(&(processor.stack), (operative[(sleep_for_while(), processor.registors[commands[++(processor.pc)]])]));}, {correct = false;})
+DEF_FUNC(pop_oper_reg, 23, 2, {stack_push(&(processor.stack), (operative[(processor.registors[commands[++(processor.pc)]])]));}, {correct = false;})
 
 
 DEF_FUNC(add, 30, 1, {stack_push(&(processor.stack), (stack_pop(&processor.stack) + stack_pop(&processor.stack)));}, stack_push(stack, CMD_add); (*pc)++;)
@@ -229,7 +229,7 @@ DEF_FUNC(sqrt, 120, 1, stack_push(&(processor.stack), ((int) (sqrt( ((float) sta
 
 
 DEF_FUNC(draw, 130, 1, for(int _ = 0; _ < TERMINAL_SHIFT; _++){ printf("%" "c", '\n'); };
-         for(int _ = 0; _ < video_mem + 1; _++){ if(_ % width != 0){printf("%" "c", operative[(sleep_for_while(), _)]);;}
+         for(int _ = 0; _ < video_mem + 1; _++){ if(_ % width != 0){printf("%" "c", operative[(_)]);;}
                else{printf("%" "c", '\n');;} }, stack_push(stack, CMD_draw); (*pc)++;;)
 
 DEF_FUNC(dump, 140, 1, processor_dump(&processor, __LOCATION__, true), stack_push(stack, CMD_dump); (*pc)++;)

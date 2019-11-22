@@ -1,0 +1,138 @@
+
+Time and date: Thu Nov  7 00:49:01 2019
+
+Dumping stack from file processor.cpp, line 90, function int run(Elem_t*, Processor_t) [ERROR!!!]
+Stack [0x7ffc772c5e08] proc->stack {
+
+		 hash    = -4290419618986402100
+
+		 canary1 = BEDAAAAAAAAAAAAA
+		 size    = 4
+		 maxsize = 10
+
+		 buff = [0x5572c0bb1030]
+		 canary_dynamic1 [0x5572c0bb1030] = BEDAAAAAAAAAAAAA
+		 data = [0x5572c0bb1038]{
+			 * data[0] = 4 
+			 * data[1] = 298 
+			 * data[2] = 7 
+			 * data[3] = 0 
+			   data[4] = 1263096897 POISON?
+			   data[5] = 1263096897 POISON?
+			   data[6] = 1263096897 POISON?
+			   data[7] = 1263096897 POISON?
+			   data[8] = 1263096897 POISON?
+			   data[9] = 1263096897 POISON?
+		 }
+		 canary_dynamic2 [0x5572c0bb1060] = BEDAAAAAAAAAAAAA
+
+		 errnum   = 000000000000
+
+		 canary2 = BEDAAAAAAAAAAAAA
+
+	}
+
+
+Time and date: Thu Nov  7 00:49:49 2019
+
+Dumping stack from file assemble.cpp, line 126, function int assemble(str_ptr, size_t, const char*) [ERROR!!!]
+Stack [0x7ffc0f9c0280] stack {
+
+		 hash    = 2115158842423208204
+
+		 canary1 = BEDAAAAAAAAAAAAA
+		 size    = 78
+		 maxsize = 80
+
+		 buff = [0x56545b8348b0]
+		 canary_dynamic1 [0x56545b8348b0] = BEDAAAAAAAAAAAAA
+		 data = [0x56545b8348b8]{
+			 * data[0] = 1195529549 
+			 * data[1] = 3223088 
+			 * data[2] = 40 
+			 * data[3] = 18 
+			 * data[4] = 21 
+			 * data[5] = 3 
+			 * data[6] = 21 
+			 * data[7] = 0 
+			 * data[8] = 21 
+			 * data[9] = 1 
+			 * data[10] = 11 
+			 * data[11] = 0 
+			 * data[12] = 13 
+			 * data[13] = 1 
+			 * data[14] = 11 
+			 * data[15] = 3 
+			 * data[16] = 100 
+			 * data[17] = 0 
+			 * data[18] = 10 
+			 * data[19] = 1 
+			 * data[20] = 20 
+			 * data[21] = 10 
+			 * data[22] = 0 
+			 * data[23] = 21 
+			 * data[24] = 2 
+			 * data[25] = 10 
+			 * data[26] = 120 
+			 * data[27] = 11 
+			 * data[28] = 2 
+			 * data[29] = 46 
+			 * data[30] = 37 
+			 * data[31] = 10 
+			 * data[32] = 49 
+			 * data[33] = 21 
+			 * data[34] = 0 
+			 * data[35] = 40 
+			 * data[36] = 41 
+			 * data[37] = 10 
+			 * data[38] = 48 
+			 * data[39] = 21 
+			 * data[40] = 0 
+			 * data[41] = 11 
+			 * data[42] = 2 
+			 * data[43] = 11 
+			 * data[44] = 0 
+			 * data[45] = 70 
+			 * data[46] = 4 
+			 * data[47] = 10 
+			 * data[48] = 1 
+			 * data[49] = 11 
+			 * data[50] = 2 
+			 * data[51] = 30 
+			 * data[52] = 21 
+			 * data[53] = 2 
+			 * data[54] = 10 
+			 * data[55] = 1620 
+			 * data[56] = 11 
+			 * data[57] = 2 
+			 * data[58] = 43 
+			 * data[59] = 25 
+			 * data[60] = 10 
+			 * data[61] = 0 
+			 * data[62] = 21 
+			 * data[63] = 2 
+			 * data[64] = 10 
+			 * data[65] = 1 
+			 * data[66] = 11 
+			 * data[67] = 2 
+			 * data[68] = 30 
+			 * data[69] = 21 
+			 * data[70] = 2 
+			 * data[71] = 10 
+			 * data[72] = 1000 
+			 * data[73] = 11 
+			 * data[74] = 2 
+			 * data[75] = 43 
+			 * data[76] = 64 
+			 * data[77] = 0 
+			   data[78] = 1263096897 POISON?
+			   data[79] = 1263096897 POISON?
+		 }
+		 canary_dynamic2 [0x56545b8349f8] = BEDAAAAAAAAAAAAA
+
+		 errnum   = 000000000000
+
+		 canary2 = BEDAAAAAAAAAAAAA
+
+	}
+
